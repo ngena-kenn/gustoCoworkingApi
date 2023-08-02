@@ -5,6 +5,7 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_TEST)
 const bodyParser = require("body-parser")
 const cors = require("cors")
 const mysql = require("mysql")
+const serverless = require("serverless-http")
 
 app.use(bodyParser.urlencoded({extended : true }))
 app.use(bodyParser.json())
@@ -60,6 +61,8 @@ app.post("/payment", cors(), async (req, res) => {
 })
 
 
-app.listen(process.env.PORT || 4000, ()=>{
+app.listen(process.env.PORT, ()=>{
     console.log("server is listening")
 })
+
+module.exports.handler = serverless(app)
