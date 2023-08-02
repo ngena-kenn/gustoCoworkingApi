@@ -5,20 +5,25 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_TEST)
 const bodyParser = require("body-parser")
 const cors = require("cors")
 const mysql = require("mysql")
-const serverless = require("serverless-http")
+
+
 
 app.use(bodyParser.urlencoded({extended : true }))
 app.use(bodyParser.json())
 app.use(express.json())
 app.use(cors())
 
-const db = mysql.createConnection({
-	host:"localhost",
-	user:"root",
-	port:"3306",
-	password:"",
-	database:"reservationlist",
-});
+const url = "mysql://root:4qsb0qXciqB4gkwgaido@containers-us-west-133.railway.app:7578/railway"
+
+const db = mysql.createConnection(url
+	//{
+	//host:process.env.HOST,
+	//user:process.env.USER,
+	//port:"3306",
+	//password: process.env.PASSWORD,
+	//database:process.env.DATABASE,
+//}
+);
 app.post('/reservationlist',async (req,res) => {
 	const sql = "INSERT INTO liste (`name`,`email`,`date`,`price`) VALUES(?)"
 	const values = [
@@ -61,8 +66,6 @@ app.post("/payment", cors(), async (req, res) => {
 })
 
 
-app.listen(process.env.PORT, ()=>{
+app.listen(process.env.PORT || 4000 , ()=>{
     console.log("server is listening")
 })
-
-module.exports.handler = serverless(app)
