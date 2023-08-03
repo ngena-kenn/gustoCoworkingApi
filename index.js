@@ -66,6 +66,6 @@ app.post("/payment", cors(), async (req, res) => {
 })
 
 
-app.listen(process.env.PORT || 4000 , ()=>{
+/*app.listen(process.env.PORT || 4000 , ()=>{
     console.log("server is listening")
-})
+})*/
