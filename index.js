@@ -16,14 +16,14 @@ app.use(cors())
 const url = "mysql://root:4qsb0qXciqB4gkwgaido@containers-us-west-133.railway.app:7578/railway"
 
 const db = mysql.createConnection(
-	url
-	//{
-	//host:process.env.HOST,
-	//user:process.env.USER,
-	//port:"3306",
-	//password: process.env.PASSWORD,
-	//database:process.env.DATABASE,
-//}
+
+	{
+	host:process.env.MYSQLHOST,
+	user:process.env.MYSQLUSER,
+	port:process.env.MYSQLPORT,
+	password: process.env.MYSQLPASSWORD,
+	database:process.env.MYSQLDATABASE,
+}
 );
 app.post('/reservationlist',async (req,res) => {
 	const sql = "INSERT INTO liste (`name`,`email`,`date`,`price`,`article`) VALUES(?)"
