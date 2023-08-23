@@ -15,7 +15,8 @@ app.use(cors())
 
 const url = "mysql://root:4qsb0qXciqB4gkwgaido@containers-us-west-133.railway.app:7578/railway"
 
-const db = mysql.createConnection(url
+const db = mysql.createConnection(
+	url
 	//{
 	//host:process.env.HOST,
 	//user:process.env.USER,
@@ -25,12 +26,14 @@ const db = mysql.createConnection(url
 //}
 );
 app.post('/reservationlist',async (req,res) => {
-	const sql = "INSERT INTO liste (`name`,`email`,`date`,`price`) VALUES(?)"
+	const sql = "INSERT INTO liste (`name`,`email`,`date`,`price`,`article`) VALUES(?)"
 	const values = [
 		req.body.name,
 		req.body.email,
 		req.body.date,
-		req.body.price
+		req.body.price,
+		req.body.article
+
 	]
 	await db.query(sql, [values],(err, data) =>{
 		if(err){
@@ -38,6 +41,22 @@ app.post('/reservationlist',async (req,res) => {
 		}
 		
 		return res.json(data);
+	})
+})
+app.post('/reservationuser',async (req,res) => {
+	const sql = "SELECT * FROM liste WHERE  email = ? ";
+	const values = [
+		req.body.email,
+	]
+	await db.query(sql, [values],(err, data) =>{
+		if(err){
+			console.log(err)
+		}
+		if(data.length > 0){
+			return res.json(data);
+		} else {
+			return res.send({message: "Faile"});
+		}
 	})
 })
 
