@@ -13,18 +13,18 @@ app.use(bodyParser.json())
 app.use(express.json())
 app.use(cors())
 
-const url = "mysql://root:4qsb0qXciqB4gkwgaido@containers-us-west-133.railway.app:7578/railway"
+const url = "mysql://bb085ce4cf2349:ee6f33f0@eu-cdbr-west-03.cleardb.net/heroku_ec93d0f43bc3ec0?reconnect=true"
 
 const db = mysql.createConnection({
-	host:process.env.MYSQLHOST,
-	user:process.env.MYSQLUSER,
-	port:process.env.MYSQLPORT,
-	password: process.env.MYSQLPASSWORD,
-	database:process.env.MYSQLDATABASE,
+	host:"eu-cdbr-west-03.cleardb.net",
+	user:"bb085ce4cf2349",
+	//port:process.env.MYSQLPORT,
+	password: "ee6f33f0",
+	database:"heroku_ec93d0f43bc3ec0",
 }
 );
 app.post('/reservationlist',async (req,res) => {
-	const sql = "INSERT INTO liste (`name`,`email`,`date`,`price`,`article`) VALUES(?)"
+	const sql = "INSERT INTO reservationlist.liste (`name`,`email`,`date`,`price`,`article`) VALUES(?)"
 	const values = [
 		req.body.name,
 		req.body.email,
@@ -42,7 +42,7 @@ app.post('/reservationlist',async (req,res) => {
 	})
 })
 app.post('/reservationuser',async (req,res) => {
-	const sql = "SELECT * FROM liste WHERE  email = ? ";
+	const sql = "SELECT * FROM reservationlist.liste WHERE  email = ? ";
 	const values = [
 		req.body.email,
 	]
@@ -82,8 +82,8 @@ app.post("/payment", cors(), async (req, res) => {
 	}
 })
 
-app.listen()
+//app.listen()
 
-// app.listen(process.env.PORT || 4000 , ()=>{
-    // console.log("server is listening")
-// })
+app.listen(process.env.PORT || 4000 , ()=>{
+     console.log("server is listening")
+ })
