@@ -11,9 +11,7 @@ const mysql = require("mysql")
 app.use(bodyParser.urlencoded({extended : true }))
 app.use(bodyParser.json())
 app.use(express.json())
-app.use(cors({
-	origin: 'https://f2i-dev22-nk-mk-pm.netlify.app'
-  }))
+app.use(cors())
 
 const url = "mysql://root:4qsb0qXciqB4gkwgaido@containers-us-west-133.railway.app:7578/railway"
 
