@@ -11,13 +11,13 @@ const mysql = require("mysql")
 app.use(bodyParser.urlencoded({extended : true }))
 app.use(bodyParser.json())
 app.use(express.json())
-app.use(cors())
+app.use(cors({
+	origin: 'https://f2i-dev22-nk-mk-pm.netlify.app'
+  }))
 
 const url = "mysql://root:4qsb0qXciqB4gkwgaido@containers-us-west-133.railway.app:7578/railway"
 
-const db = mysql.createConnection(
-
-	{
+const db = mysql.createConnection({
 	host:process.env.MYSQLHOST,
 	user:process.env.MYSQLUSER,
 	port:process.env.MYSQLPORT,
@@ -85,6 +85,6 @@ app.post("/payment", cors(), async (req, res) => {
 })
 
 
-/*app.listen(process.env.PORT || 4000 , ()=>{
+app.listen(process.env.PORT || 4000 , ()=>{
     console.log("server is listening")
-})*/
+})
