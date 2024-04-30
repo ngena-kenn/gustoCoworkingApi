@@ -1,0 +1,3 @@
+# config/stripe_config.yaml
+parameters:
+    stripe_secret_key: "sk_test_51NViAtBaiI39BkXpoGFgFoPTVIhHsnNhlQCwSNfGLSTavsCcD7bu5bj7UAaOLe3sVeBtEnj3Q49M3c5MKVYPtS7L008bqji2Cy"

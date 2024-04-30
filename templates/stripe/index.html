@@ -1,0 +1,38 @@
+{# templates/paiement.html.twig #}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Paiement</title>
+    <!-- Inclure jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Paiement</h1>
+    <button id="paymentButton">Payer</button>
+
+    <script>
+        // Attacher un gestionnaire d'événement au bouton de paiement
+        $('#paymentButton').click(function() {
+            var reservationId = '13'; // Convertir en chaîne de caractères
+
+            // Envoyer une requête AJAX pour obtenir l'URL de paiement
+            $.ajax({
+                url: 'http://127.0.0.1:42093/paiement/' + reservationId,
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    // Rediriger le client vers la page de paiement Stripe
+                    console.log("data: ", data);
+                    console.log("Url: ", data.payment_url);
+                    // window.location.href = data.payment_url;
+                    window.open(data.payment_url, '_blank');
+                },
+                error: function(error) {
+                    console.error('Erreur lors de la récupération de l\'URL de paiement:', error);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
